@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'drf_spectacular',
+    'django_filters',
     'storage',
 ]
 
@@ -118,6 +119,9 @@ REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES' : [
         'rest_framework.renderers.JSONRenderer',
     ],
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ],
     'DEFAULT_PARSER_CLASSES' :[
         'rest_framework.parsers.JSONParser',
         'rest_framework.parsers.MultiPartParser',
@@ -131,6 +135,14 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
         'PAGE_SIZE':50,
+    'DEFAULT_THROTTLE_CLASSES': [
+        'storage.views.TypicalRateThrottle',
+        'storage.views.AtypicalRateThrottle',
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'typical': '50/day',
+        'atypical': '100/day'
+    },
 }
 
 SIMPLE_JWT = {

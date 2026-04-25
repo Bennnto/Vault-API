@@ -4,6 +4,7 @@ from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.throttling import UserRateThrottle
 from drf_spectacular.utils import extend_schema, OpenApiTypes
 from rest_framework.exceptions import MethodNotAllowed
 from drf_spectacular.openapi import OpenApiParameter
@@ -28,8 +29,14 @@ MULTIPART_SCHEMA = {
     }
 }
 
+class TypicalRateThrottle(UserRateThrottle):
+    scope = 'typical'
+
+class AtypicalRateThrottle(UserRateThrottle):
+    scope = 'atypical'
 
 class StorageView(viewsets.ModelViewSet):
+    throttle_classes = [TypicalRateThrottle]
     queryset = Storage.objects.all()
     permission_classes = [IsAuthenticated]
     serializer_class = StorageSerializer
@@ -109,6 +116,7 @@ class StorageView(viewsets.ModelViewSet):
 
 
 class TagsView(viewsets.ModelViewSet):
+    throttle_scope = 'atypical'
     queryset = Tags.objects.all()
     permission_classes = [IsAuthenticated]
     serializer_class = TagsSerializer
