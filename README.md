@@ -5,7 +5,6 @@
 - [Features](#features)
 - [Tech Stack](#tech-stack)
 - [API Endpoints](#api-endpoints)
-- [Usage Examples](#usage-examples)
 
 ### Overview
 Vault API is a RESTful API for document management with filtering function and user authentication. It provides a secure, scalable platform for individuals to store, organize, and retrieve important documents and data. Built with Django REST Framework, it offers a modern RESTful API and secure user access by JWT (JSON Web Token) authentication, real-time filtering capabilities, CRUD (Create, Read, Update, Delete) interface that ease of use for managing items/data in storage and oranizing items/data with tagging system.
